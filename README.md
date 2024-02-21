@@ -52,6 +52,7 @@ if __name__ == "__main__":
         - Em outro indicador, renomeei alguns do Stages, para ficarem de acordo com exemplo informado
             - Filtro 1 -> Filtro B = Filtro 2, Movimento manual = Agendados -> Qualificados -> Venda = Vendidos
         - Não sei se a base fornecida para construção veio faltando informação, mas com os dados fornecidos via API, esse foi o resultado alcançado.
+            - Na documentação não tinha nada referente a regra de negócio, então tive que supor o resultado.
     * Usei POWER BI como ferramente de construção dos indicadores.
     * Python como Direct Data Source.
 
