@@ -51,6 +51,7 @@ if __name__ == "__main__":
         - A ordem dos Stages considerei como Filtro 1 -> Etapa B -> Movimento Manual -> Qualificados e Venda
         - Em outro indicador, renomeei alguns do Stages, para ficarem de acordo com exemplo informado
             - Filtro 1 -> Filtro B = Filtro 2, Movimento manual = Agendados -> Qualificados -> Venda = Vendidos
+        - Não sei se a base fornecida para construção veio faltando informação, mas com os dados fornecidos via API, esse foi o resultado alcançado.
     * Usei POWER BI como ferramente de construção dos indicadores.
     * Python como Direct Data Source.
 
@@ -207,7 +208,7 @@ FROM
 WHERE
   U.email LIKE '%a%';
 
-  
+
 SELECT
   F.nome,
   COUNT(*) AS 'Quantidade de aluguéis'
