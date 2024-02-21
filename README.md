@@ -237,7 +237,7 @@ cada uma delas seria apropriada.
 
 * Tratamento de Outliers:
     - Lida com valores atípicos ou extremos que podem distorcer as análises estatísticas.
-    - Um exemplo disso se tivermos uma coluna de idade de clientes e alguns valores estiverem ausentes, poderíamos preencher os valores ausentes com a média da idade dos clientes (claro que isso depende da regra do negócio envolvida e o quanto impacta no resultado final). Ou apenas desconsiderar os valores que estão ausentes/nulos
+    - Um exemplo disso se tivermos uma coluna de renda que contenha valores onde geram um valor médio e sua mediana, se temos um valor discrepante, usando boxplot conseguimos verificar o outlier no dado e assim analisar.
     ```python
     import numpy as np
     import pandas as pd
