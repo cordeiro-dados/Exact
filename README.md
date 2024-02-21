@@ -364,4 +364,4 @@ para determinar o impacto potencial dessa mudança nos negócios?
 * Teste A/B
     - experimento de preços, pra avaliar o impacto real das mudanças de preço em um grupo de clientes.
 
-## Referente as questões, todo conteúdo referente a churn, aprendizado de máquina descrito, já estudei teoricamente e atualmente estou aplicando a maioria dos conceitos que informei na prática em um curso de Data Science,
+## Referente as questões, todo conteúdo referente a churn, aprendizado de máquina descrito, já estudei teoricamente e atualmente estou aplicando a maioria dos conceitos que informei na prática em um curso de longa duração de Data Science da ASN.rocks
