@@ -168,33 +168,57 @@ CROSS JOIN
 
 ## SELECTS
 
-SELECT F.nome AS 'Filme', G.nome AS 'Genero', L.dtLocacao, U.nome AS 'Usuario', U.email
-FROM locacao L
-JOIN filmelocacao FL ON L.filmeLocacaoId = FL.id
-JOIN filmes F ON FL.filmeId = F.id
-JOIN genero G ON F.generoId = G.id
-JOIN usuario U ON L.usuarioId = U.id
-WHERE MONTH(L.dtLocacao) = MONTH(NOW()) AND YEAR(L.dtLocacao) = YEAR(NOW());
+SELECT
+  F.nome AS 'Filme',
+  G.nome AS 'Genero',
+  L.dtLocacao,
+  U.nome AS 'Usuario',
+  U.email
+FROM
+  locacao L
+  JOIN filmelocacao FL ON L.filmeLocacaoId = FL.id
+  JOIN filmes F ON FL.filmeId = F.id
+  JOIN genero G ON F.generoId = G.id
+  JOIN usuario U ON L.usuarioId = U.id
+WHERE
+  MONTH(L.dtLocacao) = MONTH(NOW())
+  AND YEAR(L.dtLocacao) = YEAR(NOW());
 
 
-SELECT U.nome, U.cpf
-FROM usuario U
-JOIN locacao L ON U.ID = L.usuarioId
-WHERE U.ativo <> 0;
+SELECT
+  U.nome,
+  U.cpf
+FROM
+  usuario U
+  JOIN locacao L ON U.ID = L.usuarioId
+WHERE
+  U.ativo <> 0;
 
-SELECT DISTINCT F.ID, F.nome, U.nome
-FROM filmes F
-JOIN filmelocacao FL ON F.ID = FL.filmeId
-JOIN locacao L ON FL.ID = L.filmeLocacaoId
-JOIN usuario U ON L.usuarioId = U.ID
-WHERE U.email LIKE '%a%';
 
-SELECT F.nome, COUNT(*) AS 'Quantidade de aluguéis'
-FROM filmes F
-JOIN filmelocacao FL ON F.ID = FL.filmeId
-JOIN locacao L ON FL.ID = L.filmeLocacaoId
-GROUP BY F.nome
-ORDER BY COUNT(*) DESC;
+SELECT
+  DISTINCT F.ID,
+  F.nome,
+  U.nome
+FROM
+  filmes F
+  JOIN filmelocacao FL ON F.ID = FL.filmeId
+  JOIN locacao L ON FL.ID = L.filmeLocacaoId
+  JOIN usuario U ON L.usuarioId = U.ID
+WHERE
+  U.email LIKE '%a%';
+
+  
+SELECT
+  F.nome,
+  COUNT(*) AS 'Quantidade de aluguéis'
+FROM
+  filmes F
+  JOIN filmelocacao FL ON F.ID = FL.filmeId
+  JOIN locacao L ON FL.ID = L.filmeLocacaoId
+GROUP BY
+  F.nome
+ORDER BY
+  COUNT(*) DESC;
 
 ```
 * Diagrama
