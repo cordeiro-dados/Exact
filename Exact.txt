@@ -1,0 +1,131 @@
+##criação das tabelas MySQL:
+
+create table genero (
+	id int PRIMARY KEY auto_increment,
+    nome varchar(100) not null,
+    dtCriacao datetime null,
+    ativo tinyint not null
+);
+
+create table filmes (
+	id int primary key auto_increment,
+    nome varchar(200) not null,
+    dtCriacao datetime not null,
+    ativo tinyint not null,
+    generoId int not null,
+    foreign key (generoId) references genero(id)
+);
+
+create table usuario (
+	id int primary key auto_increment,
+    nome varchar(200) not null,
+    email varchar(200),
+    cpf varchar(14),
+    ativo tinyint not null
+);
+
+create table filmelocacao (
+	id int primary key auto_increment,
+    filmeId int not null,
+    foreign key (filmeId) references filmes(id)
+);
+
+create table locacao (
+	id int primary key auto_increment,
+    filmeLocacaoId int not null,
+    usuarioId int not null,
+    dtCriacao datetime not null,
+    foreign key (filmeLocacaoId) references filmelocacao(id),
+    foreign key (usuarioId) references usuario(id)
+);
+
+
+
+## INSERTS
+
+INSERT INTO FILMES (nome, dtCriacao, ativo, generoId)
+SELECT 
+    CONCAT('Filme ', n) AS nome,
+    NOW() AS dtCriacao,
+    1 AS ativo,
+    FLOOR(RAND() * 5) + 1 AS generoId
+FROM (
+    SELECT 1 AS n UNION ALL
+    SELECT 2 UNION ALL
+    SELECT 3 UNION ALL
+    SELECT 4 UNION ALL
+    SELECT 5 UNION ALL
+    SELECT 6 UNION ALL
+    SELECT 7 UNION ALL
+    SELECT 8 UNION ALL
+    SELECT 9 UNION ALL
+    SELECT 10 UNION ALL
+    SELECT 11 UNION ALL
+    SELECT 12 UNION ALL
+    SELECT 13 UNION ALL
+    SELECT 14 UNION ALL
+    SELECT 15 UNION ALL
+    SELECT 16 UNION ALL
+    SELECT 17 UNION ALL
+    SELECT 18 UNION ALL
+    SELECT 19 UNION ALL
+    SELECT 20
+) AS numbers;
+
+INSERT INTO USUARIO (nome, email, cpf, ativo)
+VALUES 
+('Usuário 1', 'usuario1@example.com', '111.111.111-11', 1),
+('Usuário 2', 'usuario2@example.com', '222.222.222-22', 1),
+('Usuário 3', 'usuario3@example.com', '333.333.333-33', 1),
+('Usuário 4', 'usuario4@example.com', '444.444.444-44', 1),
+('Usuário 5', 'usuario5@example.com', '555.555.555-55', 1);
+
+INSERT INTO GENERO (nome, dtCriacao, ativo)
+VALUES 
+('Ação', NOW(), 1),
+('Comédia', NOW(), 1),
+('Drama', NOW(), 1),
+('Suspense', NOW(), 1),
+('Animação', NOW(), 1);
+
+
+INSERT INTO LOCACAO (filmeLocacaoId, usuarioId, dtLocacao)
+SELECT 
+    FL.ID AS filmeLocacaoId,
+    U.ID AS usuarioId,
+    NOW() AS dtLocacao
+FROM 
+    (SELECT ID FROM FILMELOCACAO ORDER BY RAND() LIMIT 20) FL
+CROSS JOIN 
+    (SELECT ID FROM USUARIO ORDER BY RAND() LIMIT 5) U;
+	
+
+## SELECTS
+
+SELECT F.nome AS 'Filme', G.nome AS 'Genero', L.dtLocacao, U.nome AS 'Usuario', U.email
+FROM LOCACAO L
+JOIN FILMELOCACAO FL ON L.filmeLocacaoId = FL.id
+JOIN FILMES F ON FL.filmeId = F.id
+JOIN GENERO G ON F.generoId = G.id
+JOIN USUARIO U ON L.usuarioId = U.id
+WHERE MONTH(L.dtLocacao) = MONTH(NOW()) AND YEAR(L.dtLocacao) = YEAR(NOW());
+
+
+SELECT U.nome, U.cpf
+FROM USUARIO U
+JOIN LOCACAO L ON U.ID = L.usuarioId
+WHERE U.ativo <> 0;
+
+SELECT DISTINCT F.ID, F.nome, U.nome
+FROM FILMES F
+JOIN FILMELOCACAO FL ON F.ID = FL.filmeId
+JOIN LOCACAO L ON FL.ID = L.filmeLocacaoId
+JOIN USUARIO U ON L.usuarioId = U.ID
+WHERE U.email LIKE '%a%';
+
+SELECT F.nome, COUNT(*) AS 'Quantidade de aluguéis'
+FROM FILMES F
+JOIN FILMELOCACAO FL ON F.ID = FL.filmeId
+JOIN LOCACAO L ON FL.ID = L.filmeLocacaoId
+GROUP BY F.nome
+ORDER BY COUNT(*) DESC;
